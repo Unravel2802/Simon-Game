@@ -4,8 +4,41 @@ var userClickedPattern = [];
 var level = 0;
 var started = false;
 
+if (!started) {
+    $(document).on("keydown", function() {
+        nextSequence();
+        $("#level-title").text("Level:" + level);
+        started = true;
+    })
+} 
+
+$(".btn").click(function () {
+    var userChosenColour = this.id;
+    userClickedPattern.push(userChosenColour);
+
+    playSound(userChosenColour);
+    animatePress(userChosenColour);
+
+    checkAnswer(userClickedPattern.length-1);
+});
+
+function checkAnswer(currentLevel) {
+    if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
+        console.log("success");
+        if (userClickedPattern.length === gamePattern.length) {
+            setTimeout(function() {
+                nextSequence();
+            }, 1000);
+        }
+    } else {
+        console.log("wrong");
+    }
+}
+
+
 function nextSequence() {
-    level ++;         
+    userClickedPattern = []; 
+    level++;         
 
     $("#level-title").text("Level: " + level);
 
@@ -22,14 +55,6 @@ function nextSequence() {
     playSound(randomChosenColour);
 }
 
-$(".btn").click(function () {
-    var userChosenColour = this.id;
-    userClickedPattern.push(userChosenColour);
-
-    playSound(userChosenColour);
-    animatePress(userChosenColour);
-});
-
 function playSound(name) {
     var audio = new Audio("./sounds/" + name + ".mp3");
     audio.play();
@@ -42,10 +67,3 @@ function animatePress(currentColour) {
     }, 100);
 }
 
-if (!started) {
-    $(document).on("keydown", function() {
-        nextSequence();
-        $("#level-title").text("Level: 0");
-        started = true;
-    })
-} 
