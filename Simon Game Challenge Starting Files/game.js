@@ -22,3 +22,10 @@ function nextSequence() {
     playSound(randomChosenColour);
 }
 
+$(".btn").click(function () {
+    var userChosenColour = this.id;
+    userClickedPattern.push(userChosenColour);
+
+    playSound(userChosenColour);
+    animatePress(userChosenColour);
+});
