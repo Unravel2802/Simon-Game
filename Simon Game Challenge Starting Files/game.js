@@ -32,9 +32,14 @@ function checkAnswer(currentLevel) {
         }
     } else {
         console.log("wrong");
+        playSound("wrong");
+        $("body").addClass("game-over");            
+        setTimeout(() => {
+            $("body").removeClass("game-over");    
+        }, 200);
+        $("h1").text("Game Over, Press Any Key to Restart");
     }
 }
-
 
 function nextSequence() {
     userClickedPattern = []; 
