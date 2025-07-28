@@ -29,3 +29,8 @@ $(".btn").click(function () {
     playSound(userChosenColour);
     animatePress(userChosenColour);
 });
+
+function playSound(name) {
+    var audio = new Audio("./sounds/" + name + ".mp3");
+    audio.play();
+}
