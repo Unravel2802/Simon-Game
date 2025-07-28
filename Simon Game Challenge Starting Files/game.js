@@ -41,3 +41,11 @@ function animatePress(currentColour) {
         $("#" + currentColour).removeClass("pressed");
     }, 100);
 }
+
+if (!started) {
+    $(document).on("keydown", function() {
+        nextSequence();
+        $("#level-title").text("Level: 0");
+        started = true;
+    })
+} 
